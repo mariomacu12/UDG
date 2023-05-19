@@ -22,11 +22,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 ':usuario' => $usuario,
                 ':password' => $password
             ));
-        $resultado = $statement->fetch();
-	if ($resultado !== false) {
+		
+			$resultado = $statement->fetch();
+			$user_id = $resultado['id'];
+	
+		if ($resultado !== false) {
 		$_SESSION['usuario'] = $usuario;
+		$_SESSION['ususario_id'] = $user_id;
 		header('Location: index.php');
+		
 	} 
+
+	
 
 	} catch (PDOException $e) {
 		echo "Error:" . $e->getMessage();

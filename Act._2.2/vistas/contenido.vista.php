@@ -18,7 +18,6 @@
 
 	<div class="contenedor">
 		<h1 class="titulo">Bienvenido a tu sesion <?php echo $_COOKIE['nombre']?></h1>
-	  
 	</div>
 
 

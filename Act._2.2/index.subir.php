@@ -14,21 +14,12 @@
 		<div class="contenedor">
 		<form class="formulario" action="backend/subir.php" method="post" enctype="multipart/form-data">
 			
-			<label for="foto">Seleciona tu foto</label>
-			<input type="file" name="imagen">
+			<label for="archivo">Seleciona tu archivo</label>
+			<input type="file" name="file">
 
 			<br><br><br>
+			<input class="submit" name="guardar" type="submit" value="Subir archivo">
 
-			<label for="titulo">Titulo de la foto</label>
-			<input type="text" name="titulo" id="titulo">
-
-			<br><br><br>
-			<input class="submit" name="guardar" type="submit" value="Subir Foto">
-
-           
-            <div class="mensaje">
-	        <h1><?php echo $mensaje ?></h1>
-            </div>
 
 
 		</form>

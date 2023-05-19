@@ -14,11 +14,11 @@
 
 		<form class="formulario" name="login" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
 			<div class="form-group">
-			<input class="usuario" type="text" name="usuario" placeholder="Nombre">
+			<input class="usuario" type="text" name="usuario" placeholder="Nombre" value="norma">
 			</div>
 
 			<div class="form-group">
-			<input class="password" type="password" name="password" placeholder="Password">
+			<input class="password" type="password" name="password" placeholder="Password" value="norma">
 				<i class="submit-btn" onclick="login.submit()">BOTON AQUI</i>
 			</div>
 

@@ -16,10 +16,8 @@ if (isset($_COOKIE['ultimo_inicio']) ) {
 
 <?php session_start();
 
-// Comprobamos tenga sesion, si no entonces redirigimos y MATAMOS LA EJECUCION DE LA PAGINA.
+// Comprobamos tenga sesion, si no entonces redirigimos 
 if (isset($_SESSION['usuario'])) {
-
-	
 	
 
 require 'vistas/contenido.vista.php';
