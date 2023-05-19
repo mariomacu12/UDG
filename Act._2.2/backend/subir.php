@@ -1,28 +1,32 @@
 <?php
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
  
    
-      $target_directory = "uploads/"; // carpeta que va contener todos los archivos
-      $file_name = $_FILES['file']['name']; // nombre del archivo que llego en el request
+      $target_directory = $_SERVER['DOCUMENT_ROOT']."/uploads/"; // carpeta que va contener todos los archivos
       $target_file_path = $target_directory . basename($_FILES['file']['name']); //url (ubicacion unica del archivo)
       $tmp_path = $_FILES['file']['tmp_name']; // ubicacion donde el servidor guarda el archivo temporalmente
-   
-      // comprobamos si la carpeta "uploads" existe, si no existe se crea una carpeta nueva
-      print_r($target_directory);
-      echo "---------------";
-      print_r($target_file_path);
-      
+      // \n salto de linea
+      // echo "ERROR ".$_FILES['file']['error']; // checando si hubo un error, ver codigos en: https://www.php.net/manual/en/features.file-upload.errors.php
+      echo $tmp_path;
 
       // asegurandose que exista la carpeta donde se va guardar
       if (!file_exists($target_directory)){
+         echo "CREANDO carpeta destino\n";
          mkdir($target_directory, 0777);
+         
       }
+      
       // guardando el archivo y checando que si se guardo
-            if(move_uploaded_file($temp_path, $target_file_path)){
-               echo "The file has been uploaded successfully.";
-            } else {
-                echo "Sorry, there was an error uploading your file.";
-            }
+      if(move_uploaded_file($tmp_path, $target_file_path)){
+         echo "\nThe file has been uploaded successfully.\n";
+      } else {
+            echo "\nSorry, there was an error uploading your file.\n";
+      }
             
             
 
