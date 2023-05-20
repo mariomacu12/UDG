@@ -3,26 +3,27 @@ require 'vistas/registro.vista.php';
 
 // recibiendo el post
 if($_SERVER['REQUEST_METHOD'] == 'POST'){
+    // leo los datos
     $usuario = $_POST['usuario'];
 	$email = $_POST['email'];
     $fecha_nacimiento = $_POST['fecha_nacimiento'];
 	$password = $_POST['password'];
 
-    $json = json_encode($_POST);
+    try {
+        // guardo los datos en la BD
+        $conexion = new PDO('mysql:host=localhost;dbname=Curso_UDG', 'root', '');
+        $statement = $conexion->prepare('INSERT INTO usuarios (id, usuario, email, fecha_nacimiento, pass) VALUES (null, :usuario,  :email, :fecha_nacimiento, :pass)');
+        $statement->execute(array(
+            ':usuario' => $usuario,
+            ':email' => $email,
+            ':fecha_nacimiento' => $fecha_nacimiento,
+            ':pass' => $password
+        ));
 
-    // mi carpeta de usuarios
-    $target_directory = $_SERVER['DOCUMENT_ROOT']."/usuarios/";
-    // archivo para el json
-    $archivo_path = $target_directory.'usuarios.json';
-
-    // creando la carpeta de usuarios
-    if (!file_exists($target_directory)){
-        mkdir($target_directory, 0777);
-     }
-
-    // Si ya existen los usuarios, solo agrego este sin borrar los otros
-
-    // escribiendo el archivo
-    file_put_contents($archivo_path, $json);
+        // Despues de registrar al usuario redirigimos para que inicie sesion.
+        header('Location: index.php');
+    } catch (PDOException $e) {
+        echo "Error:" . $e->getMessage();
+    }
 }
 ?>
