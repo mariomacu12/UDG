@@ -24,12 +24,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ));
 		
 			$resultado = $statement->fetch();
-			$user_id = $resultado['id'];
-	
-		if ($resultado !== false) {
-		$_SESSION['usuario'] = $usuario;
-		$_SESSION['ususario_id'] = $user_id;
-		header('Location: index.php');
+			
+			if ($resultado) {
+				$_SESSION['usuario'] = $usuario;
+				$user_id = $resultado['id'];
+				$_SESSION['usuario_id'] = $user_id;
+				header('Location: index.php');
 		
 	} 
 

@@ -1,37 +1,54 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<h1>Ingresa tus datos para guardarlos en un archivo JSON</h1>
+<?php
+session_start();
+
+// estos codigos muestran los errores
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
 
 
-<form name="form_jason" action="guardar_json.php" method="POST">
-			<div>
-                <label for="nombre"></label>
-				<input type="text" name="nombre" placeholder="Nombre">
-			</div>
 
-			<div>
-                <label for="apellido"></label>
-				<input type="text" name="apellido" placeholder="Apellido">
-			</div>
 
-			<div>
-                <label for="edad"></label>
-				<input type="text" name="edad" placeholder="Edad">
-			</div>
+	$datosSesion = $_SESSION;
 
-            <div>
-				<input type="submit" name="submit" value="Guardar">
-			</div>
+	// Convertir el array en formato en string
+	$json = json_encode($datosSesion); 
+
+	if($json){
+
+	$nombreArchivo = 'datos.json';
+	$rutaCarpeta = $_SERVER['DOCUMENT_ROOT']."/json/";
+	$permisos = 0777;
+	
+	}
+   // Establecer los permisos de escritura en la carpeta
+if (is_dir($rutaCarpeta)) {
+    chmod($rutaCarpeta, $permisos);
+
+	$nombreArchivo = 'datos.json';
+	file_put_contents($nombreArchivo, $json);
+    echo 'Permisos establecidos correctamente en la carpeta.';
+} else {
+    echo 'La carpeta no existe.';
+}
+
+
 
 	
-			
-			</form>
-</body>
-</html>
+
+	
+
+	
+
+?>
+	
+
+
+	?>
+
+
+	
+
+
+
+
+

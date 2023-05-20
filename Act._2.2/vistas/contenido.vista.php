@@ -53,7 +53,7 @@
 		    <br>
 		    <br>
 		    <br>
-		       <a href="index.subir.php">Subir imagen</a>
+		       <a href="panel_control_archivos.php">Panel de control de archivos</a>
 		    <br>
 	        <br>
 			<br>

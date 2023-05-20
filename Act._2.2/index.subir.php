@@ -10,7 +10,7 @@
 <body>
 
 	<div class="contenedor">
-		<h1 class="titulo">subir archivo</h1>
+		<h1 class="titulo">Panel de administración</h1>
 		<div class="contenedor">
 		<form class="formulario" action="backend/subir.php" method="post" enctype="multipart/form-data">
 			
@@ -23,6 +23,14 @@
 
 
 		</form>
+
+
+
+		<br><br><br>
+		
+
+		
+
         <br><br>
         <a href="contenido.php">Regresar</a>
 
