@@ -28,7 +28,7 @@
         <div class="form-group">
             <input class="password" type="password" name="password" placeholder="Contraseña">
         </div>
-        <input type="submit">Guardar</input>
+        <input type="submit"/>
     </form>
 </div>
 </body>
