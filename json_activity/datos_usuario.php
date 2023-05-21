@@ -1,6 +1,9 @@
 <?php 
 require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
 // leemos el usuario guardado en el json
 $target_directory = $_SERVER['DOCUMENT_ROOT']."/usuarios/";
 $archivo_path = $target_directory.'usuarios.json';
@@ -27,13 +30,27 @@ function crearPDF($nombre, $email, $fecha_nacimiento){
     $pdf->Write(1, "Fecha de Nacimiento: ".$fecha_nacimiento, '', false, 'L', true);
     $pdf->Close();
     ob_end_clean();
-    $pdf->Output('Usuario.pdf','I');
+    $pdf->Output($nombre.'.pdf','D');
 }
 function crearWord($nombre, $email, $fecha_nacimiento){
     echo 'Word';
 }
 function crearExcel($nombre, $email, $fecha_nacimiento){
-    echo 'Excel';
+    header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    header('Content-Disposition: attachment;filename="'.$nombre.'.xlsx"');
+
+    $spreadsheet = new Spreadsheet();
+    $sheet = $spreadsheet->getActiveSheet();
+    $sheet->setCellValue('A1', 'Datos del Usuario');
+    $sheet->setCellValue('A3', 'Nombre');
+    $sheet->setCellValue('B3', $nombre);
+    $sheet->setCellValue('A4', 'Email');
+    $sheet->setCellValue('B4', $email);
+    $sheet->setCellValue('A5', 'Fecha de Nacimiento');
+    $sheet->setCellValue('B5', $fecha_nacimiento);
+    $writer = new Xlsx($spreadsheet);
+    ob_end_clean();
+    $writer->save('php://output');
 }
 
 if (isset($_POST['btnPDF'])) {
