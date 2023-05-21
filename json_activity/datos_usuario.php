@@ -3,6 +3,10 @@ require $_SERVER['DOCUMENT_ROOT'] . '/vendor/autoload.php';
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+// use PhpOffice\PhpWord\PhpWord;
+use PhpOffice\PhpWord\Settings;
+use PhpOffice\PhpWord\IOFactory;
+use PhpOffice\PhpWord\PhpWord;
 
 // leemos el usuario guardado en el json
 $target_directory = $_SERVER['DOCUMENT_ROOT']."/usuarios/";
@@ -33,7 +37,27 @@ function crearPDF($nombre, $email, $fecha_nacimiento){
     $pdf->Output($nombre.'.pdf','D');
 }
 function crearWord($nombre, $email, $fecha_nacimiento){
-    echo 'Word';
+    $phpWord = new PhpWord();
+    $section = $phpWord->addSection();
+    $section->addText('Datos del Usuario');
+    $section->addText('');
+    $section->addText('');
+    $section->addText('Nombre:'.$nombre);
+    $section->addText('Email:'.$email);
+    $section->addText('Fecha de Nacimiento:'.$fecha_nacimiento);
+    $writer = IOFactory::createWriter($phpWord, 'Word2007');
+    $archivo_path = $_SERVER['DOCUMENT_ROOT'].'/'.$nombre.'.docx';
+    ob_end_clean();
+    $writer->save($archivo_path);
+
+
+    header('Content-Type: application/vnd.openxmlformats-officedocument.wordprocessingml.document');
+    header('Content-Disposition: attachment;filename="'.$nombre.'.docx"');
+    header('Content-Transfer-Encoding: binary');
+    header('Content-Length: ' . filesize($archivo_path));
+    ob_clean();
+    flush();
+    readfile($archivo_path);
 }
 function crearExcel($nombre, $email, $fecha_nacimiento){
     header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
